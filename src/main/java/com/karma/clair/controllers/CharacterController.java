@@ -4,6 +4,7 @@ import com.karma.clair.models.character.CharacterClair;
 import com.karma.clair.models.character.dtos.CharacterRequestDTO;
 import com.karma.clair.models.character.dtos.CharacterResponseDTO;
 import com.karma.clair.services.CharacterService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,11 @@ import java.util.UUID;
 @RequestMapping("api/characters")
 public class CharacterController {
 
-    @Autowired
-    private CharacterService characterService;
+    private final CharacterService characterService;
+
+    public CharacterController(CharacterService characterService) {
+        this.characterService = characterService;
+    }
 
     @GetMapping("/")
     public ResponseEntity<List<CharacterClair>> getAllCharacters() {
@@ -35,7 +39,7 @@ public class CharacterController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<CharacterResponseDTO> create(@RequestBody CharacterRequestDTO characterRequestDTO) {
+    public ResponseEntity<CharacterResponseDTO> create(@RequestBody @Valid CharacterRequestDTO characterRequestDTO) {
         CharacterClair response = characterService.create(characterRequestDTO);
 
         CharacterResponseDTO characterResponseDTO = new CharacterResponseDTO();

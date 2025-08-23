@@ -14,8 +14,11 @@ import java.util.UUID;
 @Service
 public class CharacterService {
 
-    @Autowired
-    private CharacterRepository characterRepository;
+    private final CharacterRepository characterRepository;
+
+    public CharacterService(CharacterRepository characterRepository) {
+        this.characterRepository = characterRepository;
+    }
 
     public CharacterClair findById(UUID id) {
         var character = characterRepository.findById(id);
