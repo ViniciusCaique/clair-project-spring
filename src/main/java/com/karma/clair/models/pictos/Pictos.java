@@ -24,7 +24,7 @@ public class Pictos implements Serializable {
 
     private String name;
     private String description;
-    private PictosAttribute pictosAttribute;
+    private PictosAttribute attribute;
     private Integer level;
 
     @CreationTimestamp
