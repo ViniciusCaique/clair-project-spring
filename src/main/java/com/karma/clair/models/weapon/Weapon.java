@@ -1,7 +1,9 @@
 package com.karma.clair.models.weapon;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.karma.clair.enums.Gender;
 import com.karma.clair.enums.WeaponType;
+import com.karma.clair.models.build.Build;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,12 +12,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 
 @Entity
 @Data
-@Table(name = "tb_weapon")
+@Table(name = "tb_weapons")
 public class Weapon implements Serializable {
 
     @Serial
@@ -34,13 +38,18 @@ public class Weapon implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updated_at;
 
-    public Weapon(UUID id, String name, WeaponType weaponType, Integer level,LocalDateTime created_at, LocalDateTime updated_at) {
+
+    @OneToMany(mappedBy = "weapon")
+    private List<Build> builds;
+
+    public Weapon(UUID id, String name, WeaponType weaponType, Integer level,LocalDateTime created_at, LocalDateTime updated_at, List<Build> builds) {
         this.id = id;
         this.name = name;
         this.weaponType = weaponType;
         this.level = level;
         this.created_at = created_at;
         this.updated_at = updated_at;
+        this.builds = builds;
     }
 
     public Weapon() { }

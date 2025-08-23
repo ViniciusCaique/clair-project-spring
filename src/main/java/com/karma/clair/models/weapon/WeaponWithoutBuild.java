@@ -1,8 +1,7 @@
-package com.karma.clair.models.weapon.dtos;
+package com.karma.clair.models.weapon;
 
-
+import com.karma.clair.enums.Gender;
 import com.karma.clair.enums.WeaponType;
-import com.karma.clair.models.build.Build;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WeaponResponseDTO {
+public class WeaponWithoutBuild {
     private UUID id;
     private String name;
     private WeaponType weaponType;
