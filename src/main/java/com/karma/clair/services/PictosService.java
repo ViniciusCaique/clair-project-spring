@@ -4,6 +4,7 @@ import com.karma.clair.models.pictos.Pictos;
 import com.karma.clair.models.pictos.dtos.PictosRequestDTO;
 import com.karma.clair.repositories.PictosRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class PictosService {
         this.pictosRepository = pictosRepository;
     }
 
+    @Cacheable("pictos")
     public List<Pictos> findAll() {
         return pictosRepository.findAll();
     }

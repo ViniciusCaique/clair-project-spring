@@ -11,6 +11,7 @@ import com.karma.clair.repositories.BuildRepository;
 import com.karma.clair.repositories.CharacterRepository;
 import com.karma.clair.repositories.WeaponRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class BuildService {
         this.weaponRepository = weaponRepository;
     }
 
+    @Cacheable("builds")
     public BuildResponseDTO findById(UUID id) {
         var response = buildRepository.findById(id).orElse(null);
 
@@ -58,6 +60,7 @@ public class BuildService {
         return responseDTO;
     }
 
+    @Cacheable("builds/character")
     public BuildResponseDTO findByCharacterId(UUID id) {
         var response = buildRepository.findByCharacterId(id).orElse(null);
 

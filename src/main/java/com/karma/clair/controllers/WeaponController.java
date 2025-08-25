@@ -27,14 +27,14 @@ public class WeaponController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Weapon>> findByWeaponType(@RequestParam("type") WeaponType weaponType) {
+    public ResponseEntity<List<WeaponResponseDTO>> findByWeaponType(@RequestParam("type") WeaponType weaponType) {
         var response = weaponService.findAllWeaponByType(weaponType);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<Weapon> findByName(@PathVariable("name") String name) {
+    public ResponseEntity<WeaponResponseDTO> findByName(@PathVariable("name") String name) {
         var response = weaponService.findByName(name);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -44,10 +44,7 @@ public class WeaponController {
     public ResponseEntity<WeaponResponseDTO> create(@RequestBody @Valid WeaponRequestDTO weaponRequestDTO) {
         var response = weaponService.create(weaponRequestDTO);
 
-        WeaponResponseDTO weaponResponseDTO = new WeaponResponseDTO();
 
-        BeanUtils.copyProperties(response, weaponResponseDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(weaponResponseDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

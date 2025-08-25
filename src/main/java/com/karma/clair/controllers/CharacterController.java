@@ -25,14 +25,14 @@ public class CharacterController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<CharacterClair>> getAllCharacters() {
+    public ResponseEntity<List<CharacterResponseDTO>> getAllCharacters() {
         var result = characterService.findAll();
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CharacterClair> getCharacterById(@PathVariable UUID id) {
+    public ResponseEntity<CharacterResponseDTO> getCharacterById(@PathVariable UUID id) {
         var result = characterService.findById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -40,12 +40,10 @@ public class CharacterController {
 
     @PostMapping("/")
     public ResponseEntity<CharacterResponseDTO> create(@RequestBody @Valid CharacterRequestDTO characterRequestDTO) {
-        CharacterClair response = characterService.create(characterRequestDTO);
-
-        CharacterResponseDTO characterResponseDTO = new CharacterResponseDTO();
-        BeanUtils.copyProperties(response, characterResponseDTO);
+        CharacterResponseDTO response = characterService.create(characterRequestDTO);
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(characterResponseDTO);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
