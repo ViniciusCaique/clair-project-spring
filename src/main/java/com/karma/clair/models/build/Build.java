@@ -3,6 +3,7 @@ package com.karma.clair.models.build;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.karma.clair.models.character.CharacterClair;
 import com.karma.clair.models.pictosBuild.PictosBuild;
+import com.karma.clair.models.users.User;
 import com.karma.clair.models.weapon.Weapon;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -40,6 +41,10 @@ public class Build implements Serializable {
     @OneToMany(mappedBy = "build")
     @Size(max = 3)
     private List<PictosBuild> pictosBuild;
+
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "characterId", nullable = false)
